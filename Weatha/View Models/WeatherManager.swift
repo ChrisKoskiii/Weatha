@@ -21,16 +21,11 @@ class WeatherManager: ObservableObject {
     
     let task = URLSession.shared.dataTask(with: url) { data, response, error in
       
-      do {
         let decodedData = try! JSONDecoder().decode(WeatherModel.self, from: data!)
         print(decodedData.name)
         self.city = decodedData.name
         print("ahoy")
         return
-      } catch {
-        print("Failed fetching data")
-        return
-      }
     }
       task.resume()
   }
