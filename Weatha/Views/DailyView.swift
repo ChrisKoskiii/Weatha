@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct DailyView: View {
+  @StateObject var forecastManager = ForecastManager()
   var body: some View {
     ZStack {
       BackgroundGradient()
-      CellsView()
+      ForecastCell(forecastManager: forecastManager, minTemp: 60, maxTemp: 80, dayOfWeek: "Monday", conditionString: "cloud")
     }
   }
 }

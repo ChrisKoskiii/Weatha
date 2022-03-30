@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct WeathaApp: App {
+  
     var body: some Scene {
         WindowGroup {
           MainView().preferredColorScheme(.dark)

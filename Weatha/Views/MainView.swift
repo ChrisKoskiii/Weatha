@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct MainView: View {
-  var wm = WeatherManager()
   
   var body: some View {
     TabView {
-      TodayView()
+      TodayView(weatherManager: CurrentWeatherManager())
         .tabItem {
           Label("Today", systemImage: "sun.max")
         }
@@ -26,13 +25,12 @@ struct MainView: View {
         }
     }
     .accentColor(Color("TextColor"))
-    .onAppear() {
-      wm.fetchWeather()
-    }
   }
 }
 
 struct MainView_Previews: PreviewProvider {
+  static var weatherManager = CurrentWeatherManager()
+  
   static var previews: some View {
     MainView().preferredColorScheme(.dark)
   }
