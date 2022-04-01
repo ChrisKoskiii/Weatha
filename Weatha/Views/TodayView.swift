@@ -10,9 +10,9 @@ import CoreLocation
 import CoreLocationUI
 
 struct TodayView: View {
-  @StateObject var weatherManager = CurrentWeatherManager()
+  @ObservedObject var weatherManager: CurrentWeatherManager
   @StateObject var locationManager = LocationManager()
-  @StateObject var forecastManager = ForecastManager()
+  @ObservedObject var forecastManager: ForecastManager
   var body: some View {
     ZStack {
       BackgroundGradient()
@@ -90,8 +90,8 @@ struct CenterWeatherView: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var weatherManager = CurrentWeatherManager()
-  
+  static var forecastManager = ForecastManager()
   static var previews: some View {
-    TodayView(weatherManager: weatherManager)
+    TodayView(weatherManager: weatherManager, forecastManager: forecastManager)
   }
 }

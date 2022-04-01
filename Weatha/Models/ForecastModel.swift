@@ -33,7 +33,16 @@ struct Coord: Codable {
 }
 
 // MARK: - List
-struct List: Codable {
+struct List: Codable, Hashable {
+  static func == (lhs: List, rhs: List) -> Bool {
+    return lhs.temp == rhs.temp && lhs.feelsLike == rhs.feelsLike
+  }
+
+  func hash(into hasher: inout Hasher) {
+      hasher.combine(temp)
+      hasher.combine(feelsLike)
+  }
+  
     let dt, sunrise, sunset: Int
     let temp: Temp
     let feelsLike: FeelsLike
@@ -54,12 +63,12 @@ struct List: Codable {
 }
 
 // MARK: - FeelsLike
-struct FeelsLike: Codable {
+struct FeelsLike: Codable, Hashable {
     let day, night, eve, morn: Double
 }
 
 // MARK: - Temp
-struct Temp: Codable {
+struct Temp: Codable, Hashable {
     let day, min, max, night: Double
     let eve, morn: Double
 }

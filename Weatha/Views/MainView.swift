@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct MainView: View {
-  
+  @StateObject var currentWeatherManager = CurrentWeatherManager()
+  @StateObject var forecastManager = ForecastManager()
+  @StateObject var locationManger = LocationManager()
   var body: some View {
     TabView {
-      TodayView(weatherManager: CurrentWeatherManager())
+      TodayView(weatherManager: currentWeatherManager, forecastManager: forecastManager)
         .tabItem {
           Label("Today", systemImage: "sun.max")
         }
-      DailyView()
+      DailyView(forecastManager: forecastManager)
         .tabItem {
           Label("Daily", systemImage: "calendar")
         }

@@ -8,51 +8,32 @@
 import SwiftUI
 
 struct DailyView: View {
-  @StateObject var forecastManager = ForecastManager()
+  @ObservedObject var forecastManager: ForecastManager
+  
   var body: some View {
     ZStack {
       BackgroundGradient()
-      ForecastCell(forecastManager: forecastManager, minTemp: 60, maxTemp: 80, dayOfWeek: "Monday", conditionString: "cloud")
+      CellsView(forecastManager: forecastManager)
     }
   }
 }
 
+//view is loading up before data is in the array?
 struct CellsView: View {
+  @ObservedObject var forecastManager: ForecastManager
   var body: some View {
     VStack {
-      ForEach(1..<7) {_ in
-        DayCell()
+      ForEach(1..<forecastManager.listArray.count) { i in
+        ForecastCell(forecastManager: forecastManager, minTemp: Int(forecastManager.listArray[i].temp.min), maxTemp: Int(forecastManager.listArray[i].temp.max), dayOfWeek: DateConversion().convertDate(from: forecastManager.listArray[i].dt), conditionString: "cloud")
       }
     }
   }
 }
-struct DayCell: View {
-  var body: some View {
-    VStack {
-      HStack {
-        Text("Monday")
-          .foregroundColor(Color("TextColor"))
-        Spacer()
-        VStack {
-          Text("High: 98")
-            .foregroundColor(Color("TextColor"))
-          Text("Low: 87")
-            .foregroundColor(Color("TextColor"))
-        }
-        Spacer()
-        Image(systemName: "cloud")
-          .foregroundColor(Color("TextColor"))
-      }
-      .padding(.leading)
-      .padding(.trailing)
-      Divider()
-    }
-    .scaleEffect()
-  }
-}
+
 
 struct DailyView_Previews: PreviewProvider {
+  static var forecastManager = ForecastManager()
   static var previews: some View {
-    DailyView()
+    DailyView(forecastManager: forecastManager)
   }
 }

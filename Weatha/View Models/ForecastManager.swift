@@ -13,7 +13,7 @@ class ForecastManager: ObservableObject {
   
   @Published var minTemp: Int?
   @Published var maxTemp: Int?
-  var dayArray: [String] = []
+  @Published var listArray: [List] = []
   
   let forecastURL = "https://api.openweathermap.org/data/2.5/forecast/daily?appid=2e22b2e5420de2d5f7a7d1a713555439&units=imperial"
   
@@ -24,9 +24,6 @@ class ForecastManager: ObservableObject {
     requestData(from: urlString)
   }
   
-  func daysOfWeek(from days: List) {
-    print("Day here")
-  }
   
   func requestData(from url: String) {
     guard let url = URL(string: url) else {
@@ -41,14 +38,21 @@ class ForecastManager: ObservableObject {
           DispatchQueue.main.async { 
             print(forecast.list[0].temp.min)
             print(forecast.list[0].temp.max)
-            self.dayArray.append(DateConversion().convertDate(from: forecast.list[0].dt))
-            self.dayArray.append(DateConversion().convertDate(from: forecast.list[1].dt))
-            self.dayArray.append(DateConversion().convertDate(from: forecast.list[2].dt))
-            self.dayArray.append(DateConversion().convertDate(from: forecast.list[3].dt))
-            self.dayArray.append(DateConversion().convertDate(from: forecast.list[4].dt))
-            self.dayArray.append(DateConversion().convertDate(from: forecast.list[5].dt))
-            self.dayArray.append(DateConversion().convertDate(from: forecast.list[6].dt))
-            print(self.dayArray)
+            self.listArray = forecast.list
+            print(self.listArray.count)
+            print(self.listArray)
+            
+            
+            
+            
+//            self.dayArray.append(DateConversion().convertDate(from: forecast.list[0].dt))
+//            self.dayArray.append(DateConversion().convertDate(from: forecast.list[1].dt))
+//            self.dayArray.append(DateConversion().convertDate(from: forecast.list[2].dt))
+//            self.dayArray.append(DateConversion().convertDate(from: forecast.list[3].dt))
+//            self.dayArray.append(DateConversion().convertDate(from: forecast.list[4].dt))
+//            self.dayArray.append(DateConversion().convertDate(from: forecast.list[5].dt))
+//            self.dayArray.append(DateConversion().convertDate(from: forecast.list[6].dt))
+//            print(self.dayArray)
           }
         }
       } catch {
