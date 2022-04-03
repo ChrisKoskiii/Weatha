@@ -10,7 +10,7 @@ import CoreLocation
 import MapKit
 
 class CurrentWeatherManager: ObservableObject {
-  @Published var city = "Weatha"
+  @Published var city = "- - -"
   @Published var temp = 0
   @Published var conditionString = "cloud"
   

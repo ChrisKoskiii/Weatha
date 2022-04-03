@@ -19,6 +19,9 @@ struct TodayView: View {
       TopToolBar(locationManager: locationManager, weatherManager: weatherManager, forecastManager: forecastManager)
       CenterWeatherView(locationManager: locationManager, weatherManager: weatherManager)
     }
+    .tabItem {
+      Label("Today", systemImage: "sun.max")
+    }
   }
 }
 

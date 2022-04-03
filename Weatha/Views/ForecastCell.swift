@@ -19,15 +19,18 @@ struct ForecastCell: View {
       HStack {
         Text(dayOfWeek)
           .foregroundColor(Color("TextColor"))
+          .frame(width: 90, alignment: .leading)
         Spacer()
-        VStack {
+        VStack(spacing: 5) {
           Text("Low: \(minTemp)")
             .foregroundColor(Color("TextColor"))
+            .frame(width: 70, alignment: .leading)
           Text("High: \(maxTemp)")
             .foregroundColor(Color("TextColor"))
+            .frame(width: 70, alignment: .leading)
         }
         Spacer()
-        Image(systemName: "cloud")
+        Image(systemName: conditionString)
           .foregroundColor(Color("TextColor"))
       }
       .padding(.leading)

@@ -14,17 +14,8 @@ struct MainView: View {
   var body: some View {
     TabView {
       TodayView(weatherManager: currentWeatherManager, forecastManager: forecastManager)
-        .tabItem {
-          Label("Today", systemImage: "sun.max")
-        }
-      DailyView(forecastManager: forecastManager)
-        .tabItem {
-          Label("Daily", systemImage: "calendar")
-        }
+      DailyView(forecastManager: forecastManager, currentWeatherManager: currentWeatherManager)
       SettingsView()
-        .tabItem {
-          Label("Settings", systemImage: "gear")
-        }
     }
     .accentColor(Color("TextColor"))
   }
