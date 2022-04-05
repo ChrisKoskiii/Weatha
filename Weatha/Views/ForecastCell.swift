@@ -15,29 +15,27 @@ struct ForecastCell: View {
   var conditionString: String
   
   var body: some View {
-    VStack {
-      HStack {
-        Text(dayOfWeek)
+    HStack {
+      Text(dayOfWeek)
+        .foregroundColor(Color("TextColor"))
+        .frame(width: 90, alignment: .leading)
+      Spacer()
+      VStack(spacing: 5) {
+        Text("Low: \(minTemp)")
           .foregroundColor(Color("TextColor"))
-          .frame(width: 90, alignment: .leading)
-        Spacer()
-        VStack(spacing: 5) {
-          Text("Low: \(minTemp)")
-            .foregroundColor(Color("TextColor"))
-            .frame(width: 70, alignment: .leading)
-          Text("High: \(maxTemp)")
-            .foregroundColor(Color("TextColor"))
-            .frame(width: 70, alignment: .leading)
-        }
-        Spacer()
-        Image(systemName: conditionString)
+          .frame(width: 70, alignment: .leading)
+        Text("High: \(maxTemp)")
           .foregroundColor(Color("TextColor"))
+          .frame(width: 70, alignment: .leading)
       }
-      .padding(.leading)
-      .padding(.trailing)
-      Divider()
+      Spacer()
+      Image(systemName: conditionString)
+        .foregroundColor(Color("TextColor"))
     }
-    .scaleEffect()
+    .padding(.leading)
+    .padding(.trailing)
+    .transition(.slide)
+    Divider()
   }
 }
 

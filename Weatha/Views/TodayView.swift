@@ -10,59 +10,29 @@ import CoreLocation
 import CoreLocationUI
 
 struct TodayView: View {
-  @ObservedObject var weatherManager: CurrentWeatherManager
-  @StateObject var locationManager = LocationManager()
+  @ObservedObject var currentWeatherManager: CurrentWeatherManager
+  @ObservedObject var locationManager: LocationManager
   @ObservedObject var forecastManager: ForecastManager
   var body: some View {
     ZStack {
       BackgroundGradient()
-      TopToolBar(locationManager: locationManager, weatherManager: weatherManager, forecastManager: forecastManager)
-      CenterWeatherView(locationManager: locationManager, weatherManager: weatherManager)
+      TopToolBar(locationManager: locationManager, currentWeatherManager: currentWeatherManager, forecastManager: forecastManager)
+      CenterWeatherView(locationManager: locationManager, weatherManager: currentWeatherManager)
     }
     .tabItem {
       Label("Today", systemImage: "sun.max")
-    }
-  }
-}
-
-
-struct TopToolBar: View {
-  
-  @ObservedObject var locationManager: LocationManager
-  @ObservedObject var weatherManager: CurrentWeatherManager
-  @ObservedObject var forecastManager: ForecastManager
-  var body: some View {
-    
-    VStack {
-      HStack {
-        Button {
-          getUserLocation()
-        } label : {
-          Image(systemName: "location.circle")
-            .resizable()
-            .frame(width: 30, height: 30)
-            .foregroundColor(Color("TextColor"))
-            .padding()
-        }
-        Spacer()
-        Image(systemName: "magnifyingglass")
-          .resizable()
-          .frame(width: 28, height: 28)
-          .foregroundColor(Color("TextColor"))
-          .padding()
-      }
-      Spacer()
     }
   }
   
   func getUserLocation() {
     locationManager.manager.requestWhenInUseAuthorization()
     print(locationManager.lastLocation ?? 0)
-    weatherManager.fetchCurrentWeather(lat: locationManager.lastLocation!.latitude, lon: locationManager.lastLocation!.longitude)
+    currentWeatherManager.fetchCurrentWeather(lat: locationManager.lastLocation!.latitude, lon: locationManager.lastLocation!.longitude)
     forecastManager.fetchForecast(lat: locationManager.lastLocation!.latitude, lon: locationManager.lastLocation!.longitude)
   }
+  
 }
-
+  
 struct CenterWeatherView: View {
   @ObservedObject var locationManager: LocationManager
   @ObservedObject var weatherManager: CurrentWeatherManager
@@ -92,9 +62,10 @@ struct CenterWeatherView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-  static var weatherManager = CurrentWeatherManager()
+  static var currentWeatherManager = CurrentWeatherManager()
   static var forecastManager = ForecastManager()
+  static var locationManager = LocationManager()
   static var previews: some View {
-    TodayView(weatherManager: weatherManager, forecastManager: forecastManager)
+    TodayView(currentWeatherManager: currentWeatherManager, locationManager: locationManager, forecastManager: forecastManager)
   }
 }

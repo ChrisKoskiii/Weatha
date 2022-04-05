@@ -12,12 +12,14 @@ struct MainView: View {
   @StateObject var forecastManager = ForecastManager()
   @StateObject var locationManger = LocationManager()
   var body: some View {
+    VStack {
     TabView {
-      TodayView(weatherManager: currentWeatherManager, forecastManager: forecastManager)
-      DailyView(forecastManager: forecastManager, currentWeatherManager: currentWeatherManager)
+      TodayView(currentWeatherManager: currentWeatherManager, locationManager: locationManger, forecastManager: forecastManager)
+      DailyView(locationManager: locationManger, forecastManager: forecastManager, currentWeatherManager: currentWeatherManager)
       SettingsView()
     }
     .accentColor(Color("TextColor"))
+  }
   }
 }
 
